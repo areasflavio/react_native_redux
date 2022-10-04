@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Rating from 'react-native-easy-rating';
 import { useSelector } from 'react-redux';
 
 export function Home() {
@@ -33,6 +34,13 @@ export function Home() {
             <View style={styles.info}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.genre}>{item.genre}</Text>
+              <Rating
+                rating={item.rating}
+                max={5}
+                iconWidth={24}
+                iconHeight={24}
+                editable={false}
+              />
             </View>
           </TouchableOpacity>
         )}
