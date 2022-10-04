@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export function Details() {
+export function Details({ route }) {
   return (
     <View style={styles.container}>
-      <Text>Details</Text>
+      <Text>Details: Id={route.params.id}</Text>
     </View>
   );
 }

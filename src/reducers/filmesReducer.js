@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [
+    // data from TMDB
     {
       id: '1',
       title: 'Avatar',
