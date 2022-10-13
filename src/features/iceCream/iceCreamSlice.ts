@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { cakeOrdered } from '../cake/cakeActions';
 
-const initialState = {
+type InitialState = {
+  numOfIceCreams: number;
+};
+
+const initialState: InitialState = {
   numOfIceCreams: 15,
 };
 

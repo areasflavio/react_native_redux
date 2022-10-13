@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+type InitialState = {
+  numOfCakes: number;
+};
+
+const initialState: InitialState = {
   numOfCakes: 10,
 };
 

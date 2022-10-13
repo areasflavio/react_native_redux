@@ -1,18 +1,19 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { RootState } from '../app/store';
+
 import { cakeOrdered, cakeRestocked } from '../features/cake/cakeActions';
 import {
   iceCreamOrdered,
   iceCreamRestocked,
 } from '../features/iceCream/iceCreamActions';
+import { fetchUsers } from '../features/user/userSlice';
 
 export function Home() {
-  const cake = useSelector((state: RootState) => state.cake);
-  const iceCream = useSelector((state: RootState) => state.iceCream);
+  const { cake, iceCream, user } = useAppSelector((state: RootState) => state);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleCakeOrder = () => {
     dispatch(cakeOrdered());
@@ -28,6 +29,10 @@ export function Home() {
 
   const handleIceCreamRestocked = () => {
     dispatch(iceCreamRestocked(5));
+  };
+
+  const handleFetchUsers = () => {
+    dispatch(fetchUsers());
   };
 
   return (
@@ -49,6 +54,25 @@ export function Home() {
         <View style={styles.divider}></View>
         <Button title="Restock ice cream" onPress={handleIceCreamRestocked} />
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.title}>Users: {user.users.length}</Text>
+        <View style={styles.divider}></View>
+        <Button
+          title="Fetch users"
+          onPress={handleFetchUsers}
+          disabled={user.loading}
+        />
+        <View style={styles.divider}></View>
+        {user.error && <Text style={styles.error}>{user.error}</Text>}
+        {!user.error && !user.loading && (
+          <FlatList
+            data={user.users}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => <Text>{item.name}</Text>}
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -63,8 +87,8 @@ const styles = StyleSheet.create({
   },
   section: {
     width: '100%',
-    padding: 32,
-    margin: 16,
+    padding: 16,
+    margin: 8,
     borderColor: '#999999',
     borderWidth: 2,
     borderRadius: 4,
@@ -77,5 +101,8 @@ const styles = StyleSheet.create({
   divider: {
     width: '100%',
     margin: 4,
+  },
+  error: {
+    color: '#c80815',
   },
 });

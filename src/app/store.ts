@@ -3,11 +3,12 @@ import { createLogger } from 'redux-logger';
 
 import { cakeReducer } from '../features/cake/cakeReducer';
 import { iceCreamReducer } from '../features/iceCream/iceCreamReducer';
+import { userReducer } from '../features/user/userReducer';
 
 const logger = createLogger();
 
 export const store = configureStore({
-  reducer: { cake: cakeReducer, iceCream: iceCreamReducer },
+  reducer: { cake: cakeReducer, iceCream: iceCreamReducer, user: userReducer },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
